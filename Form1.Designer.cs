@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelSideMenu = new Guna.UI2.WinForms.Guna2Panel();
+            this.mainTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
             this.lblTrackTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.pbAlbumArt = new Guna.UI2.WinForms.Guna2PictureBox();
             this.trackBarVolume = new Guna.UI2.WinForms.Guna2TrackBar();
@@ -40,11 +44,18 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.завантажитиПіснюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
+            this.panelPlaylistContainer = new Guna.UI2.WinForms.Guna2Panel();
+            this.gridPlaylist = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.colNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colArtist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelSideMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbumArt)).BeginInit();
             this.guna2Panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panelPlaylistContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridPlaylist)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSideMenu
@@ -54,10 +65,22 @@
             this.panelSideMenu.Controls.Add(this.lblTrackTitle);
             this.panelSideMenu.Controls.Add(this.pbAlbumArt);
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSideMenu.Location = new System.Drawing.Point(0, 30);
+            this.panelSideMenu.Location = new System.Drawing.Point(0, 26);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(395, 467);
+            this.panelSideMenu.Size = new System.Drawing.Size(395, 471);
             this.panelSideMenu.TabIndex = 0;
+            // 
+            // mainTrackBar
+            // 
+            this.mainTrackBar.BackColor = System.Drawing.Color.DarkOrchid;
+            this.mainTrackBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mainTrackBar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.mainTrackBar.Location = new System.Drawing.Point(0, 448);
+            this.mainTrackBar.Name = "mainTrackBar";
+            this.mainTrackBar.Size = new System.Drawing.Size(395, 23);
+            this.mainTrackBar.TabIndex = 2;
+            this.mainTrackBar.ThumbColor = System.Drawing.Color.Black;
+            this.mainTrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.guna2TrackBar1_Scroll);
             // 
             // lblTrackTitle
             // 
@@ -166,7 +189,7 @@
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2Panel1.Location = new System.Drawing.Point(395, 368);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(467, 129);
+            this.guna2Panel1.Size = new System.Drawing.Size(530, 129);
             this.guna2Panel1.TabIndex = 2;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
@@ -178,34 +201,133 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
-            this.menuStrip1.Size = new System.Drawing.Size(862, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(925, 26);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // завантажитиПіснюToolStripMenuItem
             // 
             this.завантажитиПіснюToolStripMenuItem.Name = "завантажитиПіснюToolStripMenuItem";
-            this.завантажитиПіснюToolStripMenuItem.Size = new System.Drawing.Size(158, 28);
+            this.завантажитиПіснюToolStripMenuItem.Size = new System.Drawing.Size(158, 24);
             this.завантажитиПіснюToolStripMenuItem.Text = "Завантажити пісню";
             this.завантажитиПіснюToolStripMenuItem.Click += new System.EventHandler(this.завантажитиПіснюToolStripMenuItem_Click);
             // 
-            // mainTrackBar
+            // panelPlaylistContainer
             // 
-            this.mainTrackBar.BackColor = System.Drawing.Color.DarkOrchid;
-            this.mainTrackBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mainTrackBar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.mainTrackBar.Location = new System.Drawing.Point(0, 444);
-            this.mainTrackBar.Name = "mainTrackBar";
-            this.mainTrackBar.Size = new System.Drawing.Size(395, 23);
-            this.mainTrackBar.TabIndex = 2;
-            this.mainTrackBar.ThumbColor = System.Drawing.Color.Black;
-            this.mainTrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.guna2TrackBar1_Scroll);
+            this.panelPlaylistContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.panelPlaylistContainer.Controls.Add(this.gridPlaylist);
+            this.panelPlaylistContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelPlaylistContainer.Location = new System.Drawing.Point(395, 26);
+            this.panelPlaylistContainer.Name = "panelPlaylistContainer";
+            this.panelPlaylistContainer.Size = new System.Drawing.Size(530, 342);
+            this.panelPlaylistContainer.TabIndex = 4;
+            // 
+            // gridPlaylist
+            // 
+            this.gridPlaylist.AllowUserToAddRows = false;
+            this.gridPlaylist.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
+            this.gridPlaylist.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.gridPlaylist.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(16)))), ((int)(((byte)(18)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridPlaylist.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.gridPlaylist.ColumnHeadersHeight = 30;
+            this.gridPlaylist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.gridPlaylist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colNumber,
+            this.colTitle,
+            this.colArtist,
+            this.colDuration});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(117)))), ((int)(((byte)(119)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridPlaylist.DefaultCellStyle = dataGridViewCellStyle3;
+            this.gridPlaylist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridPlaylist.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
+            this.gridPlaylist.Location = new System.Drawing.Point(0, 0);
+            this.gridPlaylist.MultiSelect = false;
+            this.gridPlaylist.Name = "gridPlaylist";
+            this.gridPlaylist.ReadOnly = true;
+            this.gridPlaylist.RowHeadersVisible = false;
+            this.gridPlaylist.RowHeadersWidth = 51;
+            this.gridPlaylist.RowTemplate.Height = 40;
+            this.gridPlaylist.Size = new System.Drawing.Size(530, 342);
+            this.gridPlaylist.TabIndex = 0;
+            this.gridPlaylist.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Dark;
+            this.gridPlaylist.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
+            this.gridPlaylist.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.gridPlaylist.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.gridPlaylist.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.gridPlaylist.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.gridPlaylist.ThemeStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.gridPlaylist.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
+            this.gridPlaylist.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(16)))), ((int)(((byte)(18)))));
+            this.gridPlaylist.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.gridPlaylist.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.gridPlaylist.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.gridPlaylist.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.gridPlaylist.ThemeStyle.HeaderStyle.Height = 30;
+            this.gridPlaylist.ThemeStyle.ReadOnly = true;
+            this.gridPlaylist.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            this.gridPlaylist.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.gridPlaylist.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.gridPlaylist.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.White;
+            this.gridPlaylist.ThemeStyle.RowsStyle.Height = 40;
+            this.gridPlaylist.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(117)))), ((int)(((byte)(119)))));
+            this.gridPlaylist.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.White;
+            // 
+            // colNumber
+            // 
+            this.colNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colNumber.FillWeight = 85.56149F;
+            this.colNumber.HeaderText = "#";
+            this.colNumber.MinimumWidth = 6;
+            this.colNumber.Name = "colNumber";
+            this.colNumber.ReadOnly = true;
+            this.colNumber.Width = 51;
+            // 
+            // colTitle
+            // 
+            this.colTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colTitle.FillWeight = 21.35884F;
+            this.colTitle.HeaderText = "Назва";
+            this.colTitle.MinimumWidth = 6;
+            this.colTitle.Name = "colTitle";
+            this.colTitle.ReadOnly = true;
+            // 
+            // colArtist
+            // 
+            this.colArtist.FillWeight = 265.8791F;
+            this.colArtist.HeaderText = "Виконавець";
+            this.colArtist.MinimumWidth = 6;
+            this.colArtist.Name = "colArtist";
+            this.colArtist.ReadOnly = true;
+            // 
+            // colDuration
+            // 
+            this.colDuration.FillWeight = 27.20053F;
+            this.colDuration.HeaderText = "Час";
+            this.colDuration.MinimumWidth = 6;
+            this.colDuration.Name = "colDuration";
+            this.colDuration.ReadOnly = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(862, 497);
+            this.ClientSize = new System.Drawing.Size(925, 497);
+            this.Controls.Add(this.panelPlaylistContainer);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.panelSideMenu);
             this.Controls.Add(this.menuStrip1);
@@ -218,6 +340,8 @@
             this.guna2Panel1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panelPlaylistContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridPlaylist)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,6 +361,12 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem завантажитиПіснюToolStripMenuItem;
         private Guna.UI2.WinForms.Guna2TrackBar mainTrackBar;
+        private Guna.UI2.WinForms.Guna2Panel panelPlaylistContainer;
+        private Guna.UI2.WinForms.Guna2DataGridView gridPlaylist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colArtist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDuration;
     }
 }
 
