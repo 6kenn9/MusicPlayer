@@ -12,6 +12,7 @@ namespace MusicPlayer
 {
     public partial class Form1 : Form
     {
+        private AudioService audioService = new AudioService();
         public Form1()
         {
             InitializeComponent();
