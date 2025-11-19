@@ -32,7 +32,23 @@ namespace MusicPlayer
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            if (isPlaying)
+            {
+                btnPlay.Text = "\uE768";
 
+                isPlaying = false;
+
+                Console.WriteLine("Backend: Music Paused"); 
+            }
+            else
+            {
+
+                btnPlay.Text = "\uE769";
+
+                isPlaying = true;
+
+                Console.WriteLine("Backend: Music Playing"); 
+            }
         }
 
         private void завантажитиПіснюToolStripMenuItem_Click(object sender, EventArgs e)
@@ -82,6 +98,36 @@ namespace MusicPlayer
 
             gridPlaylist.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             gridPlaylist.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            // TODO (Backend): audioService.PreviousTrack();
+
+            // Те саме: вмикаємо режим "Грає", якщо стояло на паузі
+            if (!isPlaying)
+            {
+                btnPlay.Text = "\uE769"; // Pause icon
+                isPlaying = true;
+            }
+
+            Console.WriteLine("Backend: Prev Track");
+        }
+            
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            // Візуальний ефект (можна додати анімацію натискання)
+
+            // TODO (Backend): audioService.NextTrack();
+
+            // Лайфхак: Якщо ми перемкнули трек, кнопка Play має стати "Pause" (бо пішла нова пісня)
+            if (!isPlaying)
+            {
+                btnPlay.Text = "\uE769"; // Pause icon
+                isPlaying = true;
+            }
+
+            Console.WriteLine("Backend: Next Track");
         }
     }
 }
