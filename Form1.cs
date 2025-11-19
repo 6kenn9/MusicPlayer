@@ -27,5 +27,23 @@ namespace MusicPlayer
         {
 
         }
+
+        private void завантажитиПіснюToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Multiselect = true;
+            dlg.Filter = "Audio files (*.mp3;*.wav)|*.mp3;*.wav";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                string[] files = dlg.FileNames;
+
+                audioService.Load(files[0]);
+                audioService.Play();
+
+                foreach (string f in files)
+                    Console.WriteLine(f);
+            }
+        }
     }
 }

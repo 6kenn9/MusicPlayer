@@ -38,9 +38,12 @@
             this.btnNext = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.завантажитиПіснюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelSideMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbumArt)).BeginInit();
             this.guna2Panel1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSideMenu
@@ -49,10 +52,10 @@
             this.panelSideMenu.Controls.Add(this.lblTrackTitle);
             this.panelSideMenu.Controls.Add(this.pbAlbumArt);
             this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
+            this.panelSideMenu.Location = new System.Drawing.Point(0, 40);
             this.panelSideMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(592, 777);
+            this.panelSideMenu.Size = new System.Drawing.Size(592, 737);
             this.panelSideMenu.TabIndex = 0;
             // 
             // lblTrackTitle
@@ -173,6 +176,25 @@
             this.guna2Panel1.TabIndex = 2;
             this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.завантажитиПіснюToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1293, 40);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // завантажитиПіснюToolStripMenuItem
+            // 
+            this.завантажитиПіснюToolStripMenuItem.Name = "завантажитиПіснюToolStripMenuItem";
+            this.завантажитиПіснюToolStripMenuItem.Size = new System.Drawing.Size(249, 38);
+            this.завантажитиПіснюToolStripMenuItem.Text = "Завантажити пісню";
+            this.завантажитиПіснюToolStripMenuItem.Click += new System.EventHandler(this.завантажитиПіснюToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -180,6 +202,8 @@
             this.ClientSize = new System.Drawing.Size(1293, 777);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.panelSideMenu);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "BetterSpotify";
@@ -187,7 +211,10 @@
             this.panelSideMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAlbumArt)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -202,6 +229,8 @@
         private Guna.UI2.WinForms.Guna2CircleButton btnNext;
         private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem завантажитиПіснюToolStripMenuItem;
     }
 }
 
