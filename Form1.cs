@@ -45,5 +45,10 @@ namespace MusicPlayer
                     Console.WriteLine(f);
             }
         }
+
+        private void guna2TrackBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+
+        }
     }
 }
