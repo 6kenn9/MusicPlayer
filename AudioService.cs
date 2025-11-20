@@ -10,6 +10,7 @@ namespace MusicPlayer
         private System.Windows.Forms.Timer _timer;
 
         public event Action<TimeSpan> OnTrackTimeChanged;
+        public event Action OnTrackFinished;
 
         public AudioService()
         {
@@ -23,7 +24,15 @@ namespace MusicPlayer
         private void Timer_Tick(object sender, System.EventArgs e)
         {
             if (_audioFile != null)
+            {
                 OnTrackTimeChanged?.Invoke(_audioFile.CurrentTime);
+
+                if (_audioFile.CurrentTime >= _audioFile.TotalTime)
+                {
+                    _timer.Stop();
+                    OnTrackFinished?.Invoke();
+                }
+            }
         }
 
         public void SetVolume(float volume)
@@ -62,5 +71,33 @@ namespace MusicPlayer
             _waveOut.Play();
             _timer.Start();
         }
+        public void Pause()
+        {
+            if (_audioFile == null) return;
+
+            _waveOut.Pause();
+            _timer.Stop();
+        }
+        public void Seek(TimeSpan position)
+        {
+            if (_audioFile == null) return;
+
+            if (position < TimeSpan.Zero)
+                position = TimeSpan.Zero;
+
+            if (position > _audioFile.TotalTime)
+                position = _audioFile.TotalTime;
+
+            _audioFile.CurrentTime = position;
+        }
+        public TimeSpan Duration
+        {
+            get
+            {
+                if (_audioFile == null) return TimeSpan.Zero;
+                return _audioFile.TotalTime;
+            }
+        }
+
     }
 }

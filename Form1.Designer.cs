@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelSideMenu = new Guna.UI2.WinForms.Guna2Panel();
             this.mainTrackBar = new Guna.UI2.WinForms.Guna2TrackBar();
             this.lblTrackTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -78,17 +78,19 @@
             this.mainTrackBar.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.mainTrackBar.Location = new System.Drawing.Point(0, 701);
             this.mainTrackBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mainTrackBar.Maximum = 1000;
             this.mainTrackBar.Name = "mainTrackBar";
             this.mainTrackBar.Size = new System.Drawing.Size(592, 36);
             this.mainTrackBar.TabIndex = 2;
             this.mainTrackBar.ThumbColor = System.Drawing.Color.Black;
-            this.mainTrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.guna2TrackBar1_Scroll);
+            this.mainTrackBar.Value = 0;
+            this.mainTrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.mainTrackBar_Scroll);
             // 
             // lblTrackTitle
             // 
             this.lblTrackTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTrackTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTrackTitle.Location = new System.Drawing.Point(206, 298);
+            this.lblTrackTitle.Location = new System.Drawing.Point(204, 273);
             this.lblTrackTitle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblTrackTitle.Name = "lblTrackTitle";
             this.lblTrackTitle.Size = new System.Drawing.Size(172, 39);
@@ -100,7 +102,7 @@
             this.pbAlbumArt.Image = ((System.Drawing.Image)(resources.GetObject("pbAlbumArt.Image")));
             this.pbAlbumArt.ImageRotate = 0F;
             this.pbAlbumArt.InitialImage = ((System.Drawing.Image)(resources.GetObject("pbAlbumArt.InitialImage")));
-            this.pbAlbumArt.Location = new System.Drawing.Point(177, 45);
+            this.pbAlbumArt.Location = new System.Drawing.Point(177, 29);
             this.pbAlbumArt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pbAlbumArt.Name = "pbAlbumArt";
             this.pbAlbumArt.Size = new System.Drawing.Size(225, 234);
@@ -201,7 +203,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(796, 202);
             this.guna2Panel1.TabIndex = 2;
-            this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
             // menuStrip1
             // 
@@ -237,17 +238,17 @@
             // 
             this.gridPlaylist.AllowUserToAddRows = false;
             this.gridPlaylist.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
-            this.gridPlaylist.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(48)))), ((int)(((byte)(52)))));
+            this.gridPlaylist.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gridPlaylist.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(16)))), ((int)(((byte)(18)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gridPlaylist.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(16)))), ((int)(((byte)(18)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridPlaylist.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.gridPlaylist.ColumnHeadersHeight = 30;
             this.gridPlaylist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.gridPlaylist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -255,15 +256,15 @@
             this.colTitle,
             this.colArtist,
             this.colDuration});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(117)))), ((int)(((byte)(119)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridPlaylist.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(37)))), ((int)(((byte)(41)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(114)))), ((int)(((byte)(117)))), ((int)(((byte)(119)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridPlaylist.DefaultCellStyle = dataGridViewCellStyle6;
             this.gridPlaylist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridPlaylist.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(56)))), ((int)(((byte)(62)))));
             this.gridPlaylist.Location = new System.Drawing.Point(0, 0);
@@ -312,7 +313,7 @@
             // colTitle
             // 
             this.colTitle.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colTitle.FillWeight = 21.35884F;
+            this.colTitle.FillWeight = 180.7117F;
             this.colTitle.HeaderText = "Назва";
             this.colTitle.MinimumWidth = 6;
             this.colTitle.Name = "colTitle";
@@ -320,7 +321,7 @@
             // 
             // colArtist
             // 
-            this.colArtist.FillWeight = 265.8791F;
+            this.colArtist.FillWeight = 113.8836F;
             this.colArtist.HeaderText = "Виконавець";
             this.colArtist.MinimumWidth = 6;
             this.colArtist.Name = "colArtist";
@@ -328,7 +329,7 @@
             // 
             // colDuration
             // 
-            this.colDuration.FillWeight = 27.20053F;
+            this.colDuration.FillWeight = 19.84314F;
             this.colDuration.HeaderText = "Час";
             this.colDuration.MinimumWidth = 6;
             this.colDuration.Name = "colDuration";
