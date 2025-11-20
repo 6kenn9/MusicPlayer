@@ -128,7 +128,6 @@
             this.btnPrev.Size = new System.Drawing.Size(75, 70);
             this.btnPrev.TabIndex = 3;
             this.btnPrev.Text = "";
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
             // 
             // btnPlay
             // 
@@ -162,7 +161,6 @@
             this.btnNext.Size = new System.Drawing.Size(75, 70);
             this.btnNext.TabIndex = 5;
             this.btnNext.Text = "";
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // guna2CircleButton1
             // 
