@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 
 namespace MusicPlayer
 {
@@ -16,6 +11,7 @@ namespace MusicPlayer
         {
             _waveOut = new WaveOutEvent();
         }
+
         public void SetVolume(float volume)
         {
             if (_waveOut == null)
@@ -26,11 +22,27 @@ namespace MusicPlayer
 
             _waveOut.Volume = volume;
         }
+
         public void Load(string path)
         {
+            if (_waveOut != null)
+            {
+                _waveOut.Stop();
+                _waveOut.Dispose();
+            }
+
+            if (_audioFile != null)
+            {
+                _audioFile.Dispose();
+            }
+
+            _waveOut = new WaveOutEvent();
+
             _audioFile = new AudioFileReader(path);
+
             _waveOut.Init(_audioFile);
         }
+
         public void Play()
         {
             if (_audioFile == null) return;
