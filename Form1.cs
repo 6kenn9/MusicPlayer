@@ -17,6 +17,7 @@ namespace MusicPlayer
         public Form1()
         {
             InitializeComponent();
+            audioService.OnTrackTimeChanged += AudioService_OnTrackTimeChanged;
 
             StylePlaylist();
 
@@ -33,22 +34,16 @@ namespace MusicPlayer
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            if (isPlaying)
+            if (!isPlaying)
             {
-                btnPlay.Text = "\uE768";
-
-                isPlaying = false;
-
-                Console.WriteLine("Backend: Music Paused"); 
+                audioService.Play();
+                btnPlay.Text = "\uE769";
+                isPlaying = true;
             }
             else
             {
-
-                btnPlay.Text = "\uE769";
-
-                isPlaying = true;
-
-                Console.WriteLine("Backend: Music Playing"); 
+                btnPlay.Text = "\uE768";
+                isPlaying = false;
             }
         }
 
@@ -99,6 +94,10 @@ namespace MusicPlayer
 
             gridPlaylist.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             gridPlaylist.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        }
+        private void AudioService_OnTrackTimeChanged(TimeSpan time)
+        {
+            Console.WriteLine("Поточний час: " + time.ToString(@"mm\:ss"));
         }
     }
 }
