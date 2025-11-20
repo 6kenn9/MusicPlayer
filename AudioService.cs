@@ -10,6 +10,7 @@ namespace MusicPlayer
     class AudioService
     {
         private WaveOutEvent _waveOut;
+        private AudioFileReader _audioFile;
 
         public AudioService()
         {
@@ -24,6 +25,17 @@ namespace MusicPlayer
             if (volume > 1f) volume = 1f;
 
             _waveOut.Volume = volume;
+        }
+        public void Load(string path)
+        {
+            _audioFile = new AudioFileReader(path);
+            _waveOut.Init(_audioFile);
+        }
+        public void Play()
+        {
+            if (_audioFile == null) return;
+
+            _waveOut.Play();
         }
     }
 }
