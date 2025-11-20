@@ -18,18 +18,7 @@ namespace MusicPlayer
         {
             InitializeComponent();
             audioService.OnTrackTimeChanged += AudioService_OnTrackTimeChanged;
-
-            StylePlaylist();
-
-            gridPlaylist.Rows.Add("1", "Billie Jean", "Michael Jackson", "4:54");
-            gridPlaylist.Rows.Add("2", "Smells Like Teen Spirit", "Nirvana", "5:01");
-            gridPlaylist.Rows.Add("3", "Shape of You", "Ed Sheeran", "3:53");
-            gridPlaylist.Rows.Add("4", "Blinding Lights", "The Weeknd", "3:20");
-        }
-
-        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            audioService.OnTrackFinished += AudioService_OnTrackFinished;
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -42,6 +31,7 @@ namespace MusicPlayer
             }
             else
             {
+                audioService.Pause();
                 btnPlay.Text = "\uE768";
                 isPlaying = false;
             }
@@ -57,17 +47,15 @@ namespace MusicPlayer
             {
                 string[] files = dlg.FileNames;
 
+                foreach (string file in files)
+                {
+                    AddSongToPlaylist(file);
+                }
+
                 audioService.Load(files[0]);
-                audioService.Play();
-
-                foreach (string f in files)
-                    Console.WriteLine(f);
+                mainTrackBar.Maximum = 1000;
+                mainTrackBar.Value = 0;
             }
-        }
-
-        private void guna2TrackBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-
         }
 
         private void StylePlaylist()
@@ -98,6 +86,101 @@ namespace MusicPlayer
         private void AudioService_OnTrackTimeChanged(TimeSpan time)
         {
             Console.WriteLine("Поточний час: " + time.ToString(@"mm\:ss"));
+            if (audioService.Duration.TotalSeconds > 0)
+            {
+                double percent = time.TotalSeconds / audioService.Duration.TotalSeconds;
+                int value = (int)(percent * mainTrackBar.Maximum);
+
+                if (value >= 0 && value <= mainTrackBar.Maximum)
+                    mainTrackBar.Value = value;
+            }
         }
+        private void AddSongToPlaylist(string filePath)
+        {
+            string fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
+
+            string artist = "Unknown";
+            string title = fileName;
+
+            if (fileName.Contains("-"))
+            {
+                string[] parts = fileName.Split('-');
+                if (parts.Length >= 2)
+                {
+                    artist = parts[0].Trim();
+                    title = parts[1].Trim();
+                }
+            }
+
+            using (var reader = new NAudio.Wave.AudioFileReader(filePath))
+            {
+                string duration = reader.TotalTime.ToString(@"mm\:ss");
+                int index = gridPlaylist.Rows.Add(
+                    gridPlaylist.Rows.Count + 1,
+                    title,
+                    artist,
+                    duration
+                );
+
+                // зберігаємо шлях файлу
+                gridPlaylist.Rows[index].Tag = filePath;
+
+            }
+        }
+
+        private void mainTrackBar_Scroll(object sender, ScrollEventArgs e)
+        {
+            double percent = (double)mainTrackBar.Value / mainTrackBar.Maximum;
+
+            TimeSpan newPosition = TimeSpan.FromSeconds(
+                audioService.Duration.TotalSeconds * percent
+            );
+
+            audioService.Seek(newPosition);
+        }
+        private void AudioService_OnTrackFinished()
+        {
+            // якщо немає треків — нічого не робимо
+            if (gridPlaylist.Rows.Count == 0)
+                return;
+
+            // поточно вибраний рядок
+            int currentIndex = -1;
+
+            if (gridPlaylist.CurrentRow != null)
+                currentIndex = gridPlaylist.CurrentRow.Index;
+
+            // якщо нічого не вибрано — починаємо з першого
+            if (currentIndex == -1)
+                currentIndex = 0;
+
+            // індекс наступного треку
+            int nextIndex = currentIndex + 1;
+
+            // якщо наступного треку немає — зупиняємо плеєр
+            if (nextIndex >= gridPlaylist.Rows.Count)
+            {
+                isPlaying = false;
+                btnPlay.Text = "\uE768"; // play icon
+                return;
+            }
+
+            // вибираємо наступний рядок
+            gridPlaylist.CurrentCell = gridPlaylist.Rows[nextIndex].Cells[1];
+
+            // отримуємо назву файла з DataGrid (потрібно зберегти шлях)
+            string title = gridPlaylist.Rows[nextIndex].Cells[1].Value.ToString();
+            string artist = gridPlaylist.Rows[nextIndex].Cells[2].Value.ToString();
+
+            // ЗНАЧНО ПРОСТІШЕ — зберігати шлях у Tag:
+            string filePath = gridPlaylist.Rows[nextIndex].Tag.ToString();
+
+            audioService.Load(filePath);
+            audioService.Play();
+
+            btnPlay.Text = "\uE769";
+            isPlaying = true;
+        }
+
     }
 }
