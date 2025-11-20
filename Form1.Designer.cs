@@ -106,7 +106,7 @@
             // 
             // trackBarVolume
             // 
-            this.trackBarVolume.Location = new System.Drawing.Point(91, 90);
+            this.trackBarVolume.Location = new System.Drawing.Point(130, 94);
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(300, 23);
             this.trackBarVolume.Style = Guna.UI2.WinForms.Enums.TrackBarStyle.Metro;
@@ -122,7 +122,7 @@
             this.btnPrev.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
             this.btnPrev.Font = new System.Drawing.Font("Segoe MDL2 Assets", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(76, 3);
+            this.btnPrev.Location = new System.Drawing.Point(130, 6);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.btnPrev.Size = new System.Drawing.Size(75, 70);
@@ -138,7 +138,7 @@
             this.btnPlay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
             this.btnPlay.Font = new System.Drawing.Font("Segoe MDL2 Assets", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlay.ForeColor = System.Drawing.Color.White;
-            this.btnPlay.Location = new System.Drawing.Point(192, 3);
+            this.btnPlay.Location = new System.Drawing.Point(244, 6);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.btnPlay.Size = new System.Drawing.Size(75, 70);
@@ -155,7 +155,7 @@
             this.btnNext.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
             this.btnNext.Font = new System.Drawing.Font("Segoe MDL2 Assets", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(306, 3);
+            this.btnNext.Location = new System.Drawing.Point(355, 6);
             this.btnNext.Name = "btnNext";
             this.btnNext.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.btnNext.Size = new System.Drawing.Size(75, 70);
@@ -171,7 +171,7 @@
             this.guna2CircleButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
             this.guna2CircleButton1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2CircleButton1.ForeColor = System.Drawing.Color.White;
-            this.guna2CircleButton1.Location = new System.Drawing.Point(22, 76);
+            this.guna2CircleButton1.Location = new System.Drawing.Point(67, 80);
             this.guna2CircleButton1.Name = "guna2CircleButton1";
             this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.guna2CircleButton1.Size = new System.Drawing.Size(48, 46);
