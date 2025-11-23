@@ -210,6 +210,27 @@ namespace MusicPlayer
             }
         }
 
+        private Image GetAlbumArt(string filePath)
+        {
+            try
+            {
+                var file = TagLib.File.Create(filePath);
+
+                if (file.Tag.Pictures.Length > 0)
+                {
+                    var bin = (byte[])file.Tag.Pictures[0].Data.Data;
+
+                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bin))
+                    {
+                        return Image.FromStream(ms);
+                    }
+                }
+            }
+            catch { }
+
+            return null;
+        }
+
         private void loadPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
