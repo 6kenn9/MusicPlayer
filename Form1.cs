@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TagLib.Matroska;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.IO;        
+using Newtonsoft.Json;   
 
 namespace MusicPlayer
 {
@@ -185,5 +187,69 @@ namespace MusicPlayer
             isPlaying = true;
         }
 
+        private void savePlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Playlist Files|*.json";
+            saveDialog.Title = "Зберегти плейлист";
+            saveDialog.FileName = "MyPlaylist.json";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string json = JsonConvert.SerializeObject(playlist, Formatting.Indented);
+                    System.IO.File.WriteAllText(saveDialog.FileName, json);
+
+                    MessageBox.Show("Плейлист успішно збережено!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка збереження: " + ex.Message);
+                }
+            }
+        }
+
+        private void loadPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "Playlist Files|*.json";
+            openDialog.Title = "Відкрити плейлист";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string json = System.IO.File.ReadAllText(openDialog.FileName);
+
+                    List<Track> loadedTracks = JsonConvert.DeserializeObject<List<Track>>(json);
+
+                    playlist.Clear();
+                    gridPlaylist.Rows.Clear(); 
+
+                    if (loadedTracks != null)
+                    {
+                        foreach (Track track in loadedTracks)
+                        {
+                            playlist.Add(track);
+
+                            int index = gridPlaylist.Rows.Add(
+                                gridPlaylist.Rows.Count + 1,
+                                track.Title,
+                                track.Artist,
+                                track.DurationString
+                            );
+                            gridPlaylist.Rows[index].Tag = track;
+                        }
+                    }
+
+                    MessageBox.Show($"Завантажено {playlist.Count} треків.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка відкриття плейлиста: " + ex.Message);
+                }
+            }
+        }
     }
 }

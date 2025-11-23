@@ -67,3 +67,5 @@ C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\System.Security.AccessControl.xml
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\System.Security.Principal.Windows.xml
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\TagLibSharp.pdb
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\TagLibSharp.xml
+C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\Newtonsoft.Json.xml
