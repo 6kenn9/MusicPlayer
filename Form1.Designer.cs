@@ -44,6 +44,8 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.завантажитиПіснюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savePlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelPlaylistContainer = new Guna.UI2.WinForms.Guna2Panel();
             this.gridPlaylist = new Guna.UI2.WinForms.Guna2DataGridView();
             this.colNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,7 +104,11 @@
             this.pbAlbumArt.Image = ((System.Drawing.Image)(resources.GetObject("pbAlbumArt.Image")));
             this.pbAlbumArt.ImageRotate = 0F;
             this.pbAlbumArt.InitialImage = ((System.Drawing.Image)(resources.GetObject("pbAlbumArt.InitialImage")));
+<<<<<<< HEAD
             this.pbAlbumArt.Location = new System.Drawing.Point(177, 29);
+=======
+            this.pbAlbumArt.Location = new System.Drawing.Point(177, 30);
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
             this.pbAlbumArt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pbAlbumArt.Name = "pbAlbumArt";
             this.pbAlbumArt.Size = new System.Drawing.Size(225, 234);
@@ -119,6 +125,7 @@
             this.trackBarVolume.Style = Guna.UI2.WinForms.Enums.TrackBarStyle.Metro;
             this.trackBarVolume.TabIndex = 2;
             this.trackBarVolume.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(160)))), ((int)(((byte)(113)))), ((int)(((byte)(255)))));
+            this.trackBarVolume.Scroll += new System.Windows.Forms.ScrollEventHandler(this.trackBarVolume_Scroll);
             // 
             // btnPrev
             // 
@@ -188,6 +195,7 @@
             this.guna2CircleButton1.Size = new System.Drawing.Size(72, 72);
             this.guna2CircleButton1.TabIndex = 6;
             this.guna2CircleButton1.Text = "";
+            this.guna2CircleButton1.Click += new System.EventHandler(this.guna2CircleButton1_Click);
             // 
             // guna2Panel1
             // 
@@ -209,9 +217,15 @@
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.завантажитиПіснюToolStripMenuItem});
+            this.завантажитиПіснюToolStripMenuItem,
+            this.savePlaylistToolStripMenuItem,
+            this.loadPlaylistToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+<<<<<<< HEAD
+=======
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
             this.menuStrip1.Size = new System.Drawing.Size(1388, 40);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
@@ -222,6 +236,20 @@
             this.завантажитиПіснюToolStripMenuItem.Size = new System.Drawing.Size(249, 36);
             this.завантажитиПіснюToolStripMenuItem.Text = "Завантажити пісню";
             this.завантажитиПіснюToolStripMenuItem.Click += new System.EventHandler(this.завантажитиПіснюToolStripMenuItem_Click);
+            // 
+            // savePlaylistToolStripMenuItem
+            // 
+            this.savePlaylistToolStripMenuItem.Name = "savePlaylistToolStripMenuItem";
+            this.savePlaylistToolStripMenuItem.Size = new System.Drawing.Size(244, 36);
+            this.savePlaylistToolStripMenuItem.Text = "Зберегти плейлист";
+            this.savePlaylistToolStripMenuItem.Click += new System.EventHandler(this.savePlaylistToolStripMenuItem_Click);
+            // 
+            // loadPlaylistToolStripMenuItem
+            // 
+            this.loadPlaylistToolStripMenuItem.Name = "loadPlaylistToolStripMenuItem";
+            this.loadPlaylistToolStripMenuItem.Size = new System.Drawing.Size(253, 36);
+            this.loadPlaylistToolStripMenuItem.Text = "Загрузити плейлист";
+            this.loadPlaylistToolStripMenuItem.Click += new System.EventHandler(this.loadPlaylistToolStripMenuItem_Click);
             // 
             // panelPlaylistContainer
             // 
@@ -381,6 +409,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn colArtist;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDuration;
+        private System.Windows.Forms.ToolStripMenuItem savePlaylistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadPlaylistToolStripMenuItem;
     }
 }
 

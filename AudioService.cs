@@ -17,7 +17,11 @@ namespace MusicPlayer
             _waveOut = new WaveOutEvent();
 
             _timer = new System.Windows.Forms.Timer();
+<<<<<<< HEAD
             _timer.Interval = 500;
+=======
+            _timer.Interval = 499;
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
             _timer.Tick += Timer_Tick;
         }
 

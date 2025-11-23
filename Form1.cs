@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TagLib.Matroska;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.IO;        
+using Newtonsoft.Json;   
 
 namespace MusicPlayer
 {
@@ -14,6 +18,12 @@ namespace MusicPlayer
     {
         private AudioService audioService = new AudioService();
         private bool isPlaying = false;
+<<<<<<< HEAD
+=======
+        private List<Track> playlist = new List<Track>();
+        private float lastVolume = 0.5f;
+        private bool isMuted = false;
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
         public Form1()
         {
             InitializeComponent();
@@ -97,6 +107,7 @@ namespace MusicPlayer
         }
         private void AddSongToPlaylist(string filePath)
         {
+<<<<<<< HEAD
             string fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
             string artist = "Unknown";
@@ -121,10 +132,49 @@ namespace MusicPlayer
                     artist,
                     duration
                 );
+=======
+            string title = System.IO.Path.GetFileNameWithoutExtension(filePath);
+            string artist = "Unknown Artist";
+            TimeSpan duration = TimeSpan.Zero;
+
+            try
+            {
+                var tfile = TagLib.File.Create(filePath);
+
+                if (!string.IsNullOrWhiteSpace(tfile.Tag.Title))
+                {
+                    title = tfile.Tag.Title;
+                }
+
+                if (!string.IsNullOrWhiteSpace(tfile.Tag.FirstPerformer))
+                {
+                    artist = tfile.Tag.FirstPerformer;
+                }
+
+                duration = tfile.Properties.Duration;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Помилка читання тегів: " + ex.Message);
+            }
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
 
                 gridPlaylist.Rows[index].Tag = filePath;
 
+<<<<<<< HEAD
             }
+=======
+            playlist.Add(newTrack);
+
+            int index = gridPlaylist.Rows.Add(
+                gridPlaylist.Rows.Count + 1,
+                newTrack.Title,
+                newTrack.Artist,
+                newTrack.DurationString
+            );
+
+            gridPlaylist.Rows[index].Tag = newTrack;
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
         }
 
         private void mainTrackBar_Scroll(object sender, ScrollEventArgs e)
@@ -136,6 +186,7 @@ namespace MusicPlayer
             );
 
             audioService.Seek(newPosition);
+<<<<<<< HEAD
         }
         private void AudioService_OnTrackFinished()
         {
@@ -171,6 +222,159 @@ namespace MusicPlayer
 
             btnPlay.Text = "\uE769";
             isPlaying = true;
+=======
+        }
+        private void AudioService_OnTrackFinished()
+        {
+            if (gridPlaylist.Rows.Count == 0)
+                return;
+
+            int currentIndex = -1;
+
+            if (gridPlaylist.CurrentRow != null)
+                currentIndex = gridPlaylist.CurrentRow.Index;
+
+            if (currentIndex == -1)
+                currentIndex = 0;
+
+            int nextIndex = currentIndex + 1;
+
+            if (nextIndex >= gridPlaylist.Rows.Count)
+            {
+                isPlaying = false;
+                btnPlay.Text = "\uE768";
+                return;
+            }
+
+            gridPlaylist.CurrentCell = gridPlaylist.Rows[nextIndex].Cells[1];
+
+            string title = gridPlaylist.Rows[nextIndex].Cells[1].Value.ToString();
+            string artist = gridPlaylist.Rows[nextIndex].Cells[2].Value.ToString();
+
+            string filePath = gridPlaylist.Rows[nextIndex].Tag.ToString();
+
+            audioService.Load(filePath);
+            audioService.Play();
+
+            btnPlay.Text = "\uE769";
+            isPlaying = true;
+        }
+
+        private void savePlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Playlist Files|*.json";
+            saveDialog.Title = "Зберегти плейлист";
+            saveDialog.FileName = "MyPlaylist.json";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string json = JsonConvert.SerializeObject(playlist, Formatting.Indented);
+                    System.IO.File.WriteAllText(saveDialog.FileName, json);
+
+                    MessageBox.Show("Плейлист успішно збережено!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка збереження: " + ex.Message);
+                }
+            }
+        }
+
+        private Image GetAlbumArt(string filePath)
+        {
+            try
+            {
+                var file = TagLib.File.Create(filePath);
+
+                if (file.Tag.Pictures.Length > 0)
+                {
+                    var bin = (byte[])file.Tag.Pictures[0].Data.Data;
+
+                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bin))
+                    {
+                        return Image.FromStream(ms);
+                    }
+                }
+            }
+            catch { }
+
+            return null;
+        }
+
+        private void loadPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "Playlist Files|*.json";
+            openDialog.Title = "Відкрити плейлист";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    string json = System.IO.File.ReadAllText(openDialog.FileName);
+
+                    List<Track> loadedTracks = JsonConvert.DeserializeObject<List<Track>>(json);
+
+                    playlist.Clear();
+                    gridPlaylist.Rows.Clear(); 
+
+                    if (loadedTracks != null)
+                    {
+                        foreach (Track track in loadedTracks)
+                        {
+                            playlist.Add(track);
+
+                            int index = gridPlaylist.Rows.Add(
+                                gridPlaylist.Rows.Count + 1,
+                                track.Title,
+                                track.Artist,
+                                track.DurationString
+                            );
+                            gridPlaylist.Rows[index].Tag = track;
+                        }
+                    }
+
+                    MessageBox.Show($"Завантажено {playlist.Count} треків.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Помилка відкриття плейлиста: " + ex.Message);
+                }
+            }
+        }
+
+        private void trackBarVolume_Scroll(object sender, ScrollEventArgs e)
+        {
+            float volume = (float)trackBarVolume.Value / trackBarVolume.Maximum;
+            audioService.SetVolume(volume);
+
+            if (!isMuted)
+                lastVolume = volume;
+        }
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            if (!isMuted)
+            {
+                lastVolume = (float)trackBarVolume.Value / trackBarVolume.Maximum;
+                audioService.SetVolume(0f);
+                trackBarVolume.Value = 0;
+
+                guna2CircleButton1.Text = "\uE992";
+                isMuted = true;
+            }
+            else
+            {
+                audioService.SetVolume(lastVolume);
+                trackBarVolume.Value = (int)(lastVolume * trackBarVolume.Maximum);
+
+                guna2CircleButton1.Text = "\uE995";
+                isMuted = false;
+            }
+>>>>>>> d3ae185d3dc7236cf03bec36efad48d569045da7
         }
 
     }
