@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MusicPlayer
+namespace MusicPlayer 
 {
     public class Track
     {
@@ -19,7 +19,10 @@ namespace MusicPlayer
 
         public string DurationString
         {
-            get { return Duration.ToString(@"mm\:ss"); }
+            get
+            {
+                return Duration.ToString(@"mm\:ss");
+            }
         }
     }
 }
