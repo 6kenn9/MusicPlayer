@@ -69,3 +69,8 @@ C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\TagLibSharp.pdb
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\TagLibSharp.xml
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Babic\Downloads\MusicPlayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sergey\Documents\OKR\MusicPlayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sergey\Documents\OKR\MusicPlayer\bin\Debug\TagLibSharp.dll
+C:\Users\Sergey\Documents\OKR\MusicPlayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sergey\Documents\OKR\MusicPlayer\bin\Debug\TagLibSharp.pdb
+C:\Users\Sergey\Documents\OKR\MusicPlayer\bin\Debug\TagLibSharp.xml

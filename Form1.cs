@@ -18,7 +18,9 @@ namespace MusicPlayer
     {
         private AudioService audioService = new AudioService();
         private bool isPlaying = false;
-        private List<Track> playlist = new List<Track>();   
+        private List<Track> playlist = new List<Track>();
+        private float lastVolume = 0.5f;
+        private bool isMuted = false;
         public Form1()
         {
             InitializeComponent();
@@ -270,6 +272,36 @@ namespace MusicPlayer
                 {
                     MessageBox.Show("Помилка відкриття плейлиста: " + ex.Message);
                 }
+            }
+        }
+
+        private void trackBarVolume_Scroll(object sender, ScrollEventArgs e)
+        {
+            float volume = (float)trackBarVolume.Value / trackBarVolume.Maximum;
+            audioService.SetVolume(volume);
+
+            if (!isMuted)
+                lastVolume = volume;
+        }
+
+        private void guna2CircleButton1_Click(object sender, EventArgs e)
+        {
+            if (!isMuted)
+            {
+                lastVolume = (float)trackBarVolume.Value / trackBarVolume.Maximum;
+                audioService.SetVolume(0f);
+                trackBarVolume.Value = 0;
+
+                guna2CircleButton1.Text = "\uE992";
+                isMuted = true;
+            }
+            else
+            {
+                audioService.SetVolume(lastVolume);
+                trackBarVolume.Value = (int)(lastVolume * trackBarVolume.Maximum);
+
+                guna2CircleButton1.Text = "\uE995";
+                isMuted = false;
             }
         }
     }
