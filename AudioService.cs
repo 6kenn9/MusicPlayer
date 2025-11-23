@@ -3,7 +3,7 @@ using System;
 
 namespace MusicPlayer
 {
-    class AudioService
+    public class AudioService
     {
         private WaveOutEvent _waveOut;
         private AudioFileReader _audioFile;
@@ -17,11 +17,11 @@ namespace MusicPlayer
             _waveOut = new WaveOutEvent();
 
             _timer = new System.Windows.Forms.Timer();
-            _timer.Interval = 500;
+            _timer.Interval = 500; 
             _timer.Tick += Timer_Tick;
         }
 
-        private void Timer_Tick(object sender, System.EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if (_audioFile != null)
             {
@@ -35,69 +35,84 @@ namespace MusicPlayer
             }
         }
 
-        public void SetVolume(float volume)
+        public void Load(string path)
         {
-            if (_waveOut == null) return;
+            Stop(); 
 
-            if (volume < 0f) volume = 0f;
-            if (volume > 1f) volume = 1f;
-
-            _waveOut.Volume = volume;
+            try
+            {
+                _audioFile = new AudioFileReader(path);
+                _waveOut = new WaveOutEvent();
+                _waveOut.Init(_audioFile);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Помилка завантаження файлу: " + ex.Message);
+            }
         }
 
-        public void Load(string path)
+        public void Play()
+        {
+            if (_audioFile != null && _waveOut != null)
+            {
+                _waveOut.Play();
+                _timer.Start();
+            }
+        }
+
+        public void Pause()
+        {
+            if (_waveOut != null)
+            {
+                _waveOut.Pause();
+                _timer.Stop();
+            }
+        }
+
+        public void Stop()
         {
             if (_waveOut != null)
             {
                 _waveOut.Stop();
                 _waveOut.Dispose();
+                _waveOut = null;
             }
-
             if (_audioFile != null)
             {
                 _audioFile.Dispose();
+                _audioFile = null;
             }
-
-            _waveOut = new WaveOutEvent();
-            _audioFile = new AudioFileReader(path);
-
-            _waveOut.Init(_audioFile);
-        }
-
-        public void Play()
-        {
-            if (_audioFile == null) return;
-
-            _waveOut.Play();
-            _timer.Start();
-        }
-        public void Pause()
-        {
-            if (_audioFile == null) return;
-
-            _waveOut.Pause();
             _timer.Stop();
         }
+
         public void Seek(TimeSpan position)
         {
-            if (_audioFile == null) return;
+            if (_audioFile != null)
+            {
+                if (position < TimeSpan.Zero) position = TimeSpan.Zero;
+                if (position > _audioFile.TotalTime) position = _audioFile.TotalTime;
 
-            if (position < TimeSpan.Zero)
-                position = TimeSpan.Zero;
-
-            if (position > _audioFile.TotalTime)
-                position = _audioFile.TotalTime;
-
-            _audioFile.CurrentTime = position;
+                _audioFile.CurrentTime = position;
+            }
         }
+
+        public void SetVolume(float volume)
+        {
+            if (_waveOut != null)
+            {
+                if (volume < 0f) volume = 0f;
+                if (volume > 1f) volume = 1f;
+
+                _waveOut.Volume = volume;
+            }
+        }
+
         public TimeSpan Duration
         {
             get
             {
-                if (_audioFile == null) return TimeSpan.Zero;
-                return _audioFile.TotalTime;
+                return _audioFile?.TotalTime ?? TimeSpan.Zero;
             }
         }
-
     }
 }
