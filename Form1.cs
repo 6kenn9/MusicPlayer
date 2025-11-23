@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TagLib.Matroska;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MusicPlayer
 {
@@ -14,6 +16,7 @@ namespace MusicPlayer
     {
         private AudioService audioService = new AudioService();
         private bool isPlaying = false;
+        private List<Track> playlist = new List<Track>();   
         public Form1()
         {
             InitializeComponent();
@@ -97,34 +100,43 @@ namespace MusicPlayer
         }
         private void AddSongToPlaylist(string filePath)
         {
-            string fileName = System.IO.Path.GetFileNameWithoutExtension(filePath);
+            string title = System.IO.Path.GetFileNameWithoutExtension(filePath);
+            string artist = "Unknown Artist";
+            TimeSpan duration = TimeSpan.Zero;
 
-            string artist = "Unknown";
-            string title = fileName;
-
-            if (fileName.Contains("-"))
+            try
             {
-                string[] parts = fileName.Split('-');
-                if (parts.Length >= 2)
+                var tfile = TagLib.File.Create(filePath);
+
+                if (!string.IsNullOrWhiteSpace(tfile.Tag.Title))
                 {
-                    artist = parts[0].Trim();
-                    title = parts[1].Trim();
+                    title = tfile.Tag.Title;
                 }
-            }
 
-            using (var reader = new NAudio.Wave.AudioFileReader(filePath))
+                if (!string.IsNullOrWhiteSpace(tfile.Tag.FirstPerformer))
+                {
+                    artist = tfile.Tag.FirstPerformer;
+                }
+
+                duration = tfile.Properties.Duration;
+            }
+            catch (Exception ex)
             {
-                string duration = reader.TotalTime.ToString(@"mm\:ss");
-                int index = gridPlaylist.Rows.Add(
-                    gridPlaylist.Rows.Count + 1,
-                    title,
-                    artist,
-                    duration
-                );
-
-                gridPlaylist.Rows[index].Tag = filePath;
-
+                Console.WriteLine("Помилка читання тегів: " + ex.Message);
             }
+
+            Track newTrack = new Track(filePath, title, artist, duration);
+
+            playlist.Add(newTrack);
+
+            int index = gridPlaylist.Rows.Add(
+                gridPlaylist.Rows.Count + 1,
+                newTrack.Title,
+                newTrack.Artist,
+                newTrack.DurationString
+            );
+
+            gridPlaylist.Rows[index].Tag = newTrack;
         }
 
         private void mainTrackBar_Scroll(object sender, ScrollEventArgs e)
