@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MusicPlayer 
+namespace MusicPlayer // <--- УВАГА: Якщо у Form1 написано namespace Lr1_01, то тут теж напиши Lr1_01
 {
     public class Track
     {
@@ -19,10 +19,7 @@ namespace MusicPlayer
 
         public string DurationString
         {
-            get
-            {
-                return Duration.ToString(@"mm\:ss");
-            }
+            get { return Duration.ToString(@"mm\:ss"); }
         }
     }
 }
